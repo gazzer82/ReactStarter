@@ -1,5 +1,11 @@
 var webpack = require('webpack');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
+
+//Auto prefixing for our CSS
+
+var autoprefixer = require('autoprefixer');
+var precss       = require('precss');
+
 console.log(__dirname);
 module.exports = {
   entry: [
@@ -36,15 +42,11 @@ module.exports = {
         exclude: /(node_modules)/,
         loaders: ['react-hot','babel']
       },
-      //SCSS
-      {
-        test: /\.scss$/,
-        exclude: /(node_modules)/,
-        loader: 'style!css!sass'
-      },
       //CSS
-      { test: /\.css$/,
-        loader: "style-loader!css-loader"
+      {
+        test: /\.(scss|.css)$/,
+        exclude: /(node_modules)/,
+        loader: 'style!css!postcss-loader!sass'
       },
       //Fonts
       {
